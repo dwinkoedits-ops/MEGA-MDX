@@ -19,7 +19,10 @@
     "clean": "rm -rf dist/",
     "rebuild": "npm run clean && npm run build",
     "lint": "npx eslint . --ext .ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "mocha",
+    "test:unit": "mocha test/unit/**/*.test.ts",
+    "test:integration": "mocha test/integration/**/*.test.ts"
   },
   "keywords": [
     "termux-whatsapp-bot",
@@ -92,10 +95,15 @@
     }
   ],
   "devDependencies": {
+    "@types/chai": "^5.2.3",
+    "@types/mocha": "^10.0.10",
     "@typescript-eslint/eslint-plugin": "^8.56.1",
     "@typescript-eslint/parser": "^8.56.1",
+    "chai": "^6.2.2",
     "eslint": "^10.0.2",
     "madge": "^8.0.0",
+    "mocha": "^11.7.5",
+    "ts-mocha": "^11.1.0",
     "ts-unused-exports": "^11.0.1"
   }
 }

@@ -1,5 +1,5 @@
-import Qasim from 'api-qasim';
-const QasimAny = Qasim as any;
+import pkg from 'api-qasim';
+const QasimAny = pkg as any;
 import axios from 'axios';
 
 export default {
