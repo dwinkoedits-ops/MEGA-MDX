@@ -1,24 +1,30 @@
-﻿ # Dependencies
+# Dependencies
 node_modules/
 package-lock.json
 
-# Baileys specific data
-baileys_store.json
-baileys_store.db*
-baileys_store.db
-baileys_store.db-wal
-baileys_store.db-shm
+# Build output
+dist/
 
-# Runtime data
-tmp/
-temp/
-dist/ 
 # Session files
 session/
 
+# Runtime data
+temp/
+tmp/
 
 # Environment variables
 .env
+
+# Database files
+*.db
+*.db-wal
+*.db-shm
+baileys_store.json
+baileys_store.db
+
+# Data files (runtime, not source)
+data/*.json
+!data/.gitkeep
 
 # Log files
 *.log
@@ -26,7 +32,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Editor directories and files
+# Editor
 .idea/
 .vscode/
 *.suo
@@ -34,12 +40,3 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
-baileys.db
-baileys_store.db
-temp/
-*.db
-*.db-wal
-*.db-shm
-data/*.json
-!data/.gitkeep
-baileys_store.json
