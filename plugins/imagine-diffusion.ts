@@ -34,11 +34,11 @@ const enhancePrompt = (prompt: string): string => {
 };
 
 export default {
-    command: 'imagine',
+    command: 'diffusion',
     aliases: ['aiimage', 'draw', 'genimage'],
     category: 'ai',
     description: 'Generate an AI image based on your prompt',
-    usage: '.imagine <prompt>',
+    usage: '.diffusion <prompt>',
 
     async handler(sock: any, message: any, args: string[], context: any = {}) {
         const chatId = context.chatId || message.key.remoteJid;
@@ -47,7 +47,7 @@ export default {
         if (!imagePrompt) {
             return sock.sendMessage(
                 chatId,
-                { text: '🎨 *AI Image Generator*\n\nUsage: `.imagine <prompt>`\nExample: `.imagine a beautiful sunset over mountains`' },
+                { text: '🎨 *AI Image Generator*\n\nUsage: `.diffusion <prompt>`\nExample: `.diffusion a beautiful sunset over mountains`' },
                 { quoted: message }
             );
         }
