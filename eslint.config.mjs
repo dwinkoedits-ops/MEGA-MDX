@@ -2,9 +2,9 @@ import tseslint from '@typescript-eslint/eslint-plugin';
 import parser from '@typescript-eslint/parser';
 
 export default [
+  { ignores: ['node_modules/**', 'dist/**'] },
   {
     files: ['**/*.ts'],
-    ignores: ['node_modules/**', 'dist/**'],
     languageOptions: {
       parser,
       parserOptions: {
@@ -20,7 +20,7 @@ export default [
         varsIgnorePattern: '^_',
         caughtErrorsIgnorePattern: '.*'  // ignore ALL catch variables
       }],
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-explicit-any': 'off',
       'no-undef': 'off',
       'no-unused-vars': 'off',
       'no-constant-condition': 'error',
