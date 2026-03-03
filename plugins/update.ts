@@ -168,13 +168,36 @@ async function updateViaZip(sock, chatId, message, zipOverride) {
 }
 
 async function restartProcess() {
+  // Check if running in Docker
+  try {
+    const { existsSync } = await import('fs');
+    if (existsSync('/.dockerenv')) {
+      setTimeout(() => process.exit(1), 500);
+      return;
+    }
+  } catch {}
+
+  // Try pm2 first
   try {
     await run('pm2 restart all');
     return;
   } catch {}
-  setTimeout(() => {
-    process.exit(0);
-  }, 500);
+
+  // Spawn new process (VPS/bare metal)
+  try {
+    const { spawn } = await import('child_process');
+    const child = spawn(process.execPath, process.argv.slice(1), {
+      detached: true,
+      stdio: 'ignore',
+      cwd: process.cwd(),
+      env: process.env
+    });
+    child.unref();
+    setTimeout(() => process.exit(0), 1500);
+    return;
+  } catch {}
+
+  setTimeout(() => process.exit(0), 500);
 }
 
 export default {

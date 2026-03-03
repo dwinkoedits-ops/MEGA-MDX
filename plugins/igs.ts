@@ -47,7 +47,7 @@ async function convertBufferToStickerWebp(inputBuffer, isAnimated, cropSquare) {
     }
   } else {
     const vf = `${cropSquare ? vfCropSquareImg : vfPadSquareImg},format=rgba`;
-    ffmpegCommand = `ffmpeg -y -i "${tempInput}" -vf "${vf}" -c:v libwebp -preset default -loop 0 -vsync 0 -pix_fmt yuva420p -quality 75 -compression_level 6 "${tempOutput}"`;
+    ffmpegCommand = `ffmpeg -y -i "${tempInput}" -vf "${vf}" -c:v libwebp -preset default -loop 0 -vsync 0 -pix_fmt yuva420p -quality 20 -compression_level 6 "${tempOutput}"`;
   }
 
   await new Promise<void>((resolve, reject) => {
@@ -182,7 +182,7 @@ async function forceMiniSticker(inputBuffer, isVideo, cropSquare) {
     ? `crop=min(iw\\,ih):min(iw\\,ih),scale=256:256${isVideo ? ',fps=6' : ''}`
     : `scale=256:256:force_original_aspect_ratio=decrease,pad=256:256:(ow-iw)/2:(oh-ih)/2:color=#00000000${isVideo ? ',fps=6' : ''}`;
 
-  const cmd = `ffmpeg -y -i "${tempInput}" ${isVideo ? '-t 2' : ''} -vf "${vf}" -c:v libwebp -preset default -loop 0 -pix_fmt yuva420p -quality 25 -compression_level 6 -b:v 60k "${tempOutput}"`;
+  const cmd = `ffmpeg -y -i "${tempInput}" ${isVideo ? '-t 2' : ''} -vf "${vf}" -c:v libwebp -preset default -loop 0 -pix_fmt yuva420p -quality 10 -compression_level 6 -b:v 40k "${tempOutput}"`;
 
   await new Promise<void>((resolve, reject) => {
     exec(cmd, (error) => error ? reject(error) : resolve(undefined));
@@ -283,19 +283,9 @@ export default {
           }
           seenHashes.add(hash);
 
-          let stickerBuffer = await convertBufferToStickerWebp(buffer, isVideo, false);
-
-          let finalSticker = stickerBuffer;
-          if (finalSticker.length > 900 * 1024) {
-            try {
-              const fallback = await forceMiniSticker(buffer, isVideo, false);
-              if (fallback && fallback.length <= 900 * 1024) {
-                finalSticker = fallback;
-              }
-            } catch(e: any) {
-              console.error('forceMiniSticker error:', e);
-            }
-          }
+          // Always use mini sticker for Instagram (images are too high-res)
+          let finalSticker = await forceMiniSticker(buffer, isVideo, false);
+          if (!finalSticker) finalSticker = await convertBufferToStickerWebp(buffer, isVideo, false);
 
           await sock.sendMessage(chatId, { 
             sticker: finalSticker,

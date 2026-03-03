@@ -41,7 +41,7 @@ async function convertBufferToStickerWebp(inputBuffer, isAnimated, cropSquare) {
     }
   } else {
     const vf = `${cropSquare ? vfCropSquareImg : vfPadSquareImg},format=rgba`;
-    ffmpegCommand = `ffmpeg -y -i "${tempInput}" -vf "${vf}" -c:v libwebp -preset default -loop 0 -vsync 0 -pix_fmt yuva420p -quality 75 -compression_level 6 "${tempOutput}"`;
+    ffmpegCommand = `ffmpeg -y -i "${tempInput}" -vf "${vf}" -c:v libwebp -preset default -loop 0 -vsync 0 -pix_fmt yuva420p -quality 40 -compression_level 6 "${tempOutput}"`;
   }
 
   await new Promise<void>((resolve, reject) => {

@@ -25,7 +25,7 @@ export async function stickercropFromBuffer(inputBuffer, isAnimated) {
       ffmpegCommand = `ffmpeg -y -i "${tempInput}" -t 3 -vf "crop=min(iw\\,ih):min(iw\\,ih),scale=512:512,fps=12" -c:v libwebp -preset default -loop 0 -vsync 0 -pix_fmt yuva420p -quality 50 -compression_level 6 -b:v 150k -max_muxing_queue_size 1024 "${tempOutput}"`;
     }
   } else {
-    ffmpegCommand = `ffmpeg -y -i "${tempInput}" -vf "crop=min(iw\\,ih):min(iw\\,ih),scale=512:512,format=rgba" -c:v libwebp -preset default -loop 0 -vsync 0 -pix_fmt yuva420p -quality 75 -compression_level 6 "${tempOutput}"`;
+    ffmpegCommand = `ffmpeg -y -i "${tempInput}" -vf "crop=min(iw\\,ih):min(iw\\,ih),scale=256:256" -c:v libwebp -quality 15 -compression_level 6 "${tempOutput}"`;
   }
 
   await new Promise<void>((resolve, reject) => {
@@ -49,7 +49,10 @@ export async function stickercropFromBuffer(inputBuffer, isAnimated) {
   const exif = Buffer.concat([exifAttr, jsonBuffer]);
   exif.writeUIntLE(jsonBuffer.length, 14, 4);
   img.exif = exif;
-  const finalBuffer = await img.save(null);
+  let finalBuffer = await img.save(null);
+  console.log('[STICKER DEBUG] final size:', finalBuffer.length, 'bytes', (finalBuffer.length/1024).toFixed(1), 'KB');
+
+
 
   try {
     fs.unlinkSync(tempInput);
@@ -181,7 +184,10 @@ export default {
       exif.writeUIntLE(jsonBuffer.length, 14, 4);
 
       img.exif = exif;
-      const finalBuffer = await img.save(null);
+      let finalBuffer = await img.save(null);
+  console.log('[STICKER DEBUG] final size:', finalBuffer.length, 'bytes', (finalBuffer.length/1024).toFixed(1), 'KB');
+
+
 
       await sock.sendMessage(chatId, { 
         sticker: finalBuffer,
