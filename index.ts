@@ -159,7 +159,7 @@ function hasValidSession() {
             }
             if (creds.registered === false) {
                 printLog('warning', 'Session not registered. Clearing for fresh pairing...');
-                try { rmSync(path.join(__dirname, 'session'), { recursive: true, force: true }); } catch (_e) {}
+                try { rmSync(path.join(__dirname, 'session'), { recursive: true, force: true }); } catch (_e) { /* ignore */ }
                 return false;
             }
             printLog('success', 'Valid and registered session credentials found');
@@ -225,7 +225,7 @@ async function startQasimDev() {
         };
         const msgRetryCounterCache = new NodeCache();
 
-        
+
         const ghostMode = await store.getSetting('global', 'stealthMode');
         const isGhostActive = ghostMode && ghostMode.enabled;
 
@@ -235,7 +235,7 @@ async function startQasimDev() {
 
         const QasimDev = makeWASocket({
             version,
-            logger: pino({ level: 'silent' }), 
+            logger: pino({ level: 'silent' }),
             // printQRInTerminal: deprecated
             browser: Browsers.macOS('Chrome'),
             auth: {
@@ -436,7 +436,7 @@ async function startQasimDev() {
                     if (rl && !rl.closed) { rl.close(); rl = null; }
                 } catch (error) {
                     if (attempt < 3) {
-                        try { rmSync('./session', { recursive: true, force: true }); } catch (_e) {}
+                        try { rmSync('./session', { recursive: true, force: true }); } catch (_e) { /* ignore */ }
                         await delay(3000);
                         startQasimDev();
                     } else {
@@ -473,6 +473,7 @@ async function startQasimDev() {
 
             if (connection === "open") {
                 printLog('success', 'Bot connected successfully!');
+
 
                 // Dynamic import for setbio (avoids circular dependency issues)
                 try {
@@ -517,7 +518,7 @@ async function startQasimDev() {
                 console.log(chalk.cyan(`< ================================================== >`));
                 console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: GlobalTechInfo`));
                 console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: GlobalTechInfo`));
-                try { owner = JSON.parse(fs.readFileSync('./data/owner.json', 'utf-8')); } catch (_e) {}
+                try { owner = JSON.parse(fs.readFileSync('./data/owner.json', 'utf-8')); } catch (_e) { /* ignore */ }
                 console.log(chalk.magenta(`${global.themeemoji || '•'} WA NUMBER: ${owner[0] || settings.ownerNumber || ''}`));
                 console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: Qasim Ali`));
                 console.log(chalk.green(`${global.themeemoji || '•'} 🤖 Bot Connected Successfully! ✅`));
@@ -533,7 +534,7 @@ async function startQasimDev() {
                 const shouldReconnect = statusCode !== DisconnectReason.loggedOut && statusCode !== 401;
 
                 if (statusCode === DisconnectReason.loggedOut || statusCode === 401) {
-                    try { rmSync('./session', { recursive: true, force: true }); } catch (_e) {}
+                    try { rmSync('./session', { recursive: true, force: true }); } catch (_e) { /* ignore */ }
                     global._pairingNumber = null;
                     await delay(3000);
                     startQasimDev();
@@ -582,9 +583,7 @@ async function main() {
 
     const sessionReady = await initializeSession();
 
-    if (sessionReady) {
-            } else {
-            }
+    if (sessionReady) { /* ignore */ } else { /* ignore */ }
 
     await delay(3000);
 
@@ -605,6 +604,7 @@ setInterval(() => {
         if (err) return;
         for (const file of files) {
             if (file === 'creds.json') continue;
+            if (file.startsWith('app-state-sync-key-')) continue;
             fs.unlink(path.join(sessionDir, file), () => {});
         }
     });

@@ -53,6 +53,7 @@ export default {
 
       for (const file of files) {
         if (file === 'creds.json') continue;
+        if (file.startsWith('app-state-sync-key-')) continue;
         try {
           fs.unlinkSync(path.join(sessionDir, file));
           filesCleared++;

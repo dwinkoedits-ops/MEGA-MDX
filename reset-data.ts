@@ -27,6 +27,10 @@ const defaults = {
     'antidelete.json':  { enabled: false },
     'antilink.json':    {},
     'antibadword.json': {},
+    'antispam.json':    { groups: {} },
+    'autoreplies.json': { enabled: true, replies: [] },
+    'schedules.json':   [],
+    'polls.json':       { polls: [] },
 };
 
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });

@@ -22,6 +22,11 @@ import { handleTagDetection } from '../plugins/antitag.js';
 import { handleMentionDetection } from '../plugins/mention.js';
 import { handleChatbotResponse } from '../plugins/chatbot.js';
 import { handleTicTacToeMove } from '../plugins/tictactoe.js';
+import { handleAutoReply } from '../plugins/autoreply.js';
+import { handleAntiSpam, invalidateGroupCache } from '../plugins/antispam.js';
+
+import { startSchedulerEngine } from '../plugins/schedule.js';
+
 import { addCommandReaction } from './reactions.js';
 
 const channelInfo = {
@@ -238,7 +243,8 @@ async function handleMessages(sock, messageUpdate) {
                             broadcast: message.broadcast
                         };
 
-                        const context = {
+
+        const context = {
                             chatId,
                             senderId,
                             isGroup,
@@ -286,7 +292,17 @@ async function handleMessages(sock, messageUpdate) {
         const userMessage = messageText.toLowerCase();
 
         const senderIsSudo = await isSudo(senderId);
+        // Start scheduler engine (safe - only starts once)
+        startSchedulerEngine(sock);
+
+        // Auto-reply check — runs before commands
+        if (!message.key.fromMe) {
+            const replied = await handleAutoReply(sock, chatId, message, userMessage);
+            if (replied) return;
+        }
+
         const senderIsOwnerOrSudo = await isOwnerOrSudo(senderId, sock, chatId);
+
         const isOwnerOrSudoCheck = message.key.fromMe || senderIsOwnerOrSudo;
 
         if (senderIsOwnerOrSudo) {
@@ -345,6 +361,12 @@ async function handleMessages(sock, messageUpdate) {
                 await handleBadwordDetection(sock, chatId, message, userMessage, senderId);
             }
             await handleLinkDetection(sock, chatId, message, userMessage, senderId);
+        }
+
+        // Anti-spam flood detection
+        if (isGroup && !message.key.fromMe) {
+            const spammed = await handleAntiSpam(sock, chatId, message, senderId, senderIsOwnerOrSudo);
+            if (spammed) return;
         }
 
         if (!isGroup && !message.key.fromMe && !senderIsSudo) {
@@ -556,6 +578,8 @@ async function handleMessages(sock, messageUpdate) {
 async function handleGroupParticipantUpdate(sock, update) {
     try {
         const { id, participants, action, author } = update;
+        // Invalidate antispam cache so admin changes take effect immediately
+        invalidateGroupCache(id);
         if (!id.endsWith('@g.us')) return;
 
         printLog('info', `Group update: ${action} in ${id.split('@')[0]}`);
