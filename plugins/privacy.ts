@@ -1,7 +1,7 @@
 export default {
     command: 'privacy',
     aliases: ['setprivacy'],
-    category: 'owner',
+    category: 'menu',
     description: 'Manage all WhatsApp privacy settings, block/unblock users',
     usage: '.privacy — show menu',
     ownerOnly: true,
@@ -16,32 +16,32 @@ export default {
         if (!setting) {
             return await sock.sendMessage(chatId, {
                 text:
-                    `╔═══════════════════════╗\n` +
-                    `║   🔒 *PRIVACY SETTINGS*   ║\n` +
-                    `╚═══════════════════════╝\n\n` +
+                    `╔═════════════════════╗\n` +
+                    `║   🔒 *PRIVACY SETTINGS* ║\n` +
+                    `╚═════════════════════╝\n` +
                     `📌 *Usage:* \`.privacy <setting> <value>\`\n\n` +
                     `──────────────────────────\n` +
                     `*⚙️ PRIVACY CONTROLS*\n` +
-                    `👁️ *lastseen* — \`all\` \`contacts\` \`blacklist\` \`none\`\n` +
-                    `🟢 *online* — \`all\` \`match_last_seen\`\n` +
-                    `🖼️ *profile* — \`all\` \`contacts\` \`blacklist\` \`none\`\n` +
-                    `📊 *status* — \`all\` \`contacts\` \`blacklist\` \`none\`\n` +
-                    `✅ *receipts* — \`all\` \`none\`\n` +
-                    `👥 *groups* — \`all\` \`contacts\` \`blacklist\`\n` +
+                    `👁️ *lastseen* — \`all\` \`contacts\` \`blacklist\` \`none\`\n\n` +
+                    `🟢 *online* — \`all\` \`match_last_seen\`\n\n` +
+                    `🖼️ *profile* — \`all\` \`contacts\` \`blacklist\` \`none\`\n\n` +
+                    `📊 *status* — \`all\` \`contacts\` \`blacklist\` \`none\`\n\n` +
+                    `✅ *receipts* — \`all\` \`none\`\n\n` +
+                    `👥 *groups* — \`all\` \`contacts\` \`blacklist\`\n\n` +
                     `⏳ *timer* — \`off\` \`24h\` \`7d\` \`90d\`\n\n` +
                     `*🚫 BLOCK CONTROLS*\n` +
-                    `🔴 *block* — \`<number>\` or reply to msg\n` +
-                    `🟢 *unblock* — \`<number>\` or reply to msg\n` +
-                    `📋 *blocklist* — view all blocked users\n\n` +
+                    `🔴 *block* — \`<number>\` or reply to msg\n\n` +
+                    `🟢 *unblock* — \`<number>\` or reply to msg\n\n` +
+                    `📋 *blocklist* — view blocked users\n\n` +
                     `*📊 INFO*\n` +
-                    `🔍 *status* — view current privacy settings\n` +
+                    `🔍 *status* — view privacy settings\n` +
                     `──────────────────────────\n\n` +
                     `💡 *Examples:*\n` +
-                    `› \`.privacy lastseen contacts\`\n` +
-                    `› \`.privacy receipts none\`\n` +
-                    `› \`.privacy timer 7d\`\n` +
-                    `› \`.privacy block 923001234567\`\n` +
-                    `› \`.privacy blocklist\`\n` +
+                    `› \`.privacy lastseen all\`\n\n` +
+                    `› \`.privacy receipts none\`\n\n` +
+                    `› \`.privacy timer 7d\`\n\n` +
+                    `› \`.privacy block 923001234567\`\n\n` +
+                    `› \`.privacy blocklist\`\n\n` +
                     `› \`.privacy status\``,
                 ...channelInfo
             }, { quoted: message });
@@ -54,14 +54,14 @@ export default {
                 const fmt = (v: any) => v ? `\`${v}\`` : `\`unknown\``;
                 return await sock.sendMessage(chatId, {
                     text:
-                        `╔═══════════════════════╗\n` +
+                        `╔═════════════════════╗\n` +
                         `║  🔒 *CURRENT PRIVACY*   ║\n` +
-                        `╚═══════════════════════╝\n\n` +
-                        `👁️ *Last Seen:* ${fmt(s.last)}\n` +
-                        `🟢 *Online:* ${fmt(s.online)}\n` +
-                        `🖼️ *Profile Pic:* ${fmt(s.profile)}\n` +
-                        `📊 *Status:* ${fmt(s.status)}\n` +
-                        `✅ *Read Receipts:* ${fmt(s.readreceipts)}\n` +
+                        `╚═════════════════════╝\n\n` +
+                        `👁️ *Last Seen:* ${fmt(s.last)}\n\n` +
+                        `🟢 *Online:* ${fmt(s.online)}\n\n` +
+                        `🖼️ *Profile Pic:* ${fmt(s.profile)}\n\n` +
+                        `📊 *Status:* ${fmt(s.status)}\n\n` +
+                        `✅ *Read Receipts:* ${fmt(s.readreceipts)}\n\n` +
                         `👥 *Groups Add:* ${fmt(s.groupadd)}\n\n` +
                         `_Use \`.privacy <setting> <value>\` to change_`,
                     ...channelInfo
@@ -81,9 +81,9 @@ export default {
                 const entries = list.map((jid: string, i: number) => `${i + 1}. +${jid.split('@')[0]}`).join('\n');
                 return await sock.sendMessage(chatId, {
                     text:
-                        `╔═══════════════════════╗\n` +
-                        `║     🚫 *BLOCK LIST*      ║\n` +
-                        `╚═══════════════════════╝\n\n` +
+                        `╔═════════════════════╗\n` +
+                        `║     🚫 *BLOCK LIST*     ║\n` +
+                        `╚═════════════════════╝\n\n` +
                         `${entries}\n\n` +
                         `──────────────────────────\n` +
                         `*Total:* ${list.length} blocked user(s)`,
