@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=180&section=header&text=MEGA-MD&fontSize=72&fontColor=fff&animation=twinkling&fontAlignY=32&desc=High%20Performance%20WhatsApp%20Bot&descAlignY=55&descSize=20" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=180&section=header&text=MEGA-MDX&fontSize=72&fontColor=fff&animation=twinkling&fontAlignY=32&desc=High%20Performance%20WhatsApp%20Bot&descAlignY=55&descSize=20" width="100%"/>
 
 <br/>
 
@@ -8,13 +8,13 @@
 
 <br/>
 
-[![Version](https://img.shields.io/badge/Version-5.2.0-blue?style=for-the-badge&logo=github)](https://github.com/GlobalTechInfo/MEGA-MD)
+[![Version](https://img.shields.io/badge/Version-6.0.0-blue?style=for-the-badge&logo=github)](https://github.com/GlobalTechInfo/MEGA-MDX)
 [![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![WhatsApp](https://img.shields.io/badge/Baileys-7.x-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://github.com/WhiskeySockets/Baileys)
 [![License](https://img.shields.io/badge/License-MIT-F7DF1E?style=for-the-badge&logo=open-source-initiative&logoColor=black)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/GlobalTechInfo/MEGA-MD?style=for-the-badge&logo=starship&color=gold)](https://github.com/GlobalTechInfo/MEGA-MD/stargazers)
-[![Forks](https://img.shields.io/github/forks/GlobalTechInfo/MEGA-MD?style=for-the-badge&logo=git&color=orange)](https://github.com/GlobalTechInfo/MEGA-MD/network/members)
+[![Stars](https://img.shields.io/github/stars/GlobalTechInfo/MEGA-MDX?style=for-the-badge&logo=starship&color=gold)](https://github.com/GlobalTechInfo/MEGA-MDX/stargazers)
+[![Forks](https://img.shields.io/github/forks/GlobalTechInfo/MEGA-MDX?style=for-the-badge&logo=git&color=orange)](https://github.com/GlobalTechInfo/MEGA-MDX/network/members)
 
 <br/>
 
@@ -107,15 +107,15 @@
 | ![libwebp](https://img.shields.io/badge/libwebp-latest-blue) | Latest | Sticker creation |
 
 > [!WARNING]
-> **Never use your personal WhatsApp number for the bot.** Always use a dedicated number. Your account may get banned if misused.
+> **Never use your personal WhatsApp number for the bot.** Always use a dedicated number.
 
 ---
 
 ## ⚡ Quick Start
 
 ```bash
-git clone https://github.com/GlobalTechInfo/MEGA-MD.git
-cd MEGA-MD
+git clone https://github.com/GlobalTechInfo/MEGA-MDX.git
+cd MEGA-MDX
 npm install
 cp sample.env .env
 # Edit .env → add SESSION_ID and OWNER_NUMBER
@@ -126,8 +126,8 @@ npm start
 ---
 
 ## 🔐 Getting Your Session ID
-
-The bot uses a **Session ID** to connect to WhatsApp without scanning QR every time. Generate it once and paste it in `.env`.
+> [!IMPORTANT]
+> The bot uses a **Session ID** to connect to WhatsApp without scanning QR every time. Generate it once and paste it in `.env`.
 
 ### Step 1 — Open the session generator
 
@@ -156,9 +156,6 @@ The bot uses a **Session ID** to connect to WhatsApp without scanning QR every t
 SESSION_ID=GlobalTechInfo/MEGA-MD_xxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-> [!NOTE]
-> The Session ID starts with `GlobalTechInfo/MEGA-MD_` followed by a Gist ID. The bot fetches your `creds.json` from a private GitHub Gist on first startup via `lib/session.ts`.
-
 ### Alternative — Pairing via terminal
 
 Leave `SESSION_ID` empty and set:
@@ -167,7 +164,7 @@ Leave `SESSION_ID` empty and set:
 PAIRING_NUMBER=923001234567
 ```
 
-> [!TIP]
+> [!NOTE]
 > The bot will print an 8-character pairing code in the terminal on startup. Link it via **WhatsApp → Linked Devices → Link with phone number** within 60 seconds.
 
 ---
@@ -222,8 +219,8 @@ DB_URL=                          # SQLite: ./data/baileys.db
 
 ```bash
 # 1. Clone
-git clone https://github.com/GlobalTechInfo/MEGA-MD.git
-cd MEGA-MD
+git clone https://github.com/GlobalTechInfo/MEGA-MDX.git
+cd MEGA-MDX
 
 # 2. Install dependencies
 npm install
@@ -235,25 +232,22 @@ nano .env
 # 4. Build TypeScript
 npm run build
 
-# 5. Init data files
-npm run reset-data
-
-# 6. Start
+# 5. Start
 npm start
 ```
 
 ### One-Line VPS Installer
 
 ```bash
-sudo bash <(curl -fsSL https://raw.githubusercontent.com/GlobalTechInfo/MEGA-MD/main/install.sh)
+sudo bash <(curl -fsSL https://raw.githubusercontent.com/GlobalTechInfo/MEGA-MDX/main/install.sh)
 ```
-
-This automatically installs Node.js 20, ffmpeg, libvips, libwebp, PM2, clones the repo, builds it, and sets up data files.
+> [!IMPORTANT]
+> This automatically installs Node.js 20, ffmpeg, libvips, libwebp, PM2, clones the repo, builds it, and sets up data files.
 
 ```bash
 # After install:
-nano /root/MEGA-MD/.env
-cd /root/MEGA-MD && pm2 start dist/index.js --name mega-md
+nano /root/MEGA-MDX/.env
+cd /root/MEGA-MDX && pm2 start dist/index.js --name mega-mdx
 pm2 save && pm2 startup
 ```
 
@@ -277,11 +271,11 @@ apt update && apt upgrade -y
 apt install -y git ffmpeg build-essential libvips-dev webp nodejs npm curl
 
 # Clone and setup
-git clone https://github.com/GlobalTechInfo/MEGA-MD.git
-cd MEGA-MD
+git clone https://github.com/GlobalTechInfo/MEGA-MDX.git
+cd MEGA-MDX
 npm install
 cp sample.env .env && nano .env
-npm run build && npm run reset-data && npm start
+npm run build && npm start
 ```
 
 **Keep running after closing Termux:**
@@ -289,13 +283,13 @@ npm run build && npm run reset-data && npm start
 ```bash
 apt install tmux -y
 
-tmux new -s mega-md    # Start new session
+tmux new -s mega-mdx    # Start new session
 npm start
 
 # Detach:     Ctrl+B → D
-# Re-attach:  tmux attach -t mega-md
+# Re-attach:  tmux attach -t mega-mdx
 # List:       tmux ls
-# Kill:       tmux kill-session -t mega-md
+# Kill:       tmux kill-session -t mega-mdx
 ```
 
 ---
@@ -307,7 +301,7 @@ npm start
 
 **One-line install (recommended):**
 ```bash
-sudo bash <(curl -fsSL https://raw.githubusercontent.com/GlobalTechInfo/MEGA-MD/main/install.sh)
+sudo bash <(curl -fsSL https://raw.githubusercontent.com/GlobalTechInfo/MEGA-MDX/main/install.sh)
 ```
 
 **Manual:**
@@ -315,15 +309,15 @@ sudo bash <(curl -fsSL https://raw.githubusercontent.com/GlobalTechInfo/MEGA-MD/
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs git ffmpeg libvips-dev libwebp-dev build-essential
 
-git clone https://github.com/GlobalTechInfo/MEGA-MD.git
-cd MEGA-MD
+git clone https://github.com/GlobalTechInfo/MEGA-MDX.git
+cd MEGA-MDX
 npm install
 cp sample.env .env && nano .env
-npm run build && npm run reset-data
+npm run build
 
 # Keep alive with PM2
 npm install -g pm2
-pm2 start dist/index.js --name mega-md
+pm2 start dist/index.js --name mega-mdx
 pm2 save && pm2 startup
 ```
 
@@ -331,9 +325,9 @@ pm2 save && pm2 startup
 
 | Command | Description |
 |---|---|
-| `pm2 logs mega-md` | Live logs |
-| `pm2 restart mega-md` | Restart |
-| `pm2 stop mega-md` | Stop |
+| `pm2 logs mega-mdx` | Live logs |
+| `pm2 restart mega-mdx` | Restart |
+| `pm2 stop mega-mdx` | Stop |
 | `pm2 status` | Status overview |
 
 ---
@@ -348,11 +342,11 @@ sudo apt update
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs git ffmpeg libvips-dev libwebp-dev build-essential
 
-git clone https://github.com/GlobalTechInfo/MEGA-MD.git
-cd MEGA-MD
+git clone https://github.com/GlobalTechInfo/MEGA-MDX.git
+cd MEGA-MDX
 npm install
 cp sample.env .env && nano .env
-npm run build && npm run reset-data && npm start
+npm run build && npm start
 ```
 
 ---
@@ -360,11 +354,11 @@ npm run build && npm run reset-data && npm start
 ### 🔁 Replit
 
 [![Replit](https://img.shields.io/badge/Replit-F26207?style=flat-square&logo=replit&logoColor=white)](https://replit.com)
-
-The repo includes pre-configured `.replit` and `replit.nix`.
+> [!NOTE]
+> The repo includes pre-configured `.replit` and `replit.nix`.
 
 1. Go to [replit.com](https://replit.com) → **Create Repl** → **Import from GitHub**
-2. Paste: `https://github.com/GlobalTechInfo/MEGA-MD`
+2. Paste: `https://github.com/GlobalTechInfo/MEGA-MDX`
 3. Open **Secrets** tab (🔒) and add:
 
    | Key | Value |
@@ -374,20 +368,20 @@ The repo includes pre-configured `.replit` and `replit.nix`.
 
 4. Click **Run**
 
-`replit.nix` automatically installs: Node.js 20, ffmpeg, imagemagick, libwebp, SQLite, pm2, and more.
+`replit.nix` automatically installs: Node.js 20, ffmpeg, imagemagick, libwebp, SQLite, pm2 etc.
 
 > [!TIP]
 > Free Replit instances sleep after inactivity. Use [UptimeRobot](https://uptimerobot.com) to ping your Replit URL every 5 minutes to keep it alive.
-
-Production deployment uses `npm run start:optimized` (512MB memory limit) — configured in `.replit`'s `[deployment]` section.
+> [!NOTE]
+> Production deployment uses `npm run start:optimized` (512MB memory limit) — configured in `.replit`'s `[deployment]` section.
 
 ---
 
 ### 🟣 Heroku
 
 [![Heroku](https://img.shields.io/badge/Heroku-430098?style=flat-square&logo=heroku&logoColor=white)](https://heroku.com)
-
-The repo includes `heroku.yml` and `app.json` for Docker-based deployment.
+> [!NOTE]
+> The repo includes `heroku.yml` and `app.json` for Docker-based deployment.
 
 ```bash
 heroku login
@@ -405,16 +399,16 @@ heroku logs --tail
 
 > [!IMPORTANT]
 > Heroku's filesystem is **ephemeral** — data is lost on restart. Use MongoDB or PostgreSQL for persistent storage.
-
-Heroku uses `heroku.yml` → Docker build → runs `npm run start:optimized`.
+> [!NOTE]
+> Heroku uses `heroku.yml` → Docker build → runs `npm run start:optimized`.
 
 ---
 
 ### 🎨 Render
 
 [![Render](https://img.shields.io/badge/Render-46E3B7?style=flat-square&logo=render&logoColor=black)](https://render.com)
-
-The repo includes `render.yaml` for one-click Blueprint deployment.
+> [!NOTE]
+> The repo includes `render.yaml` for one-click Blueprint deployment.
 
 1. Fork this repo
 2. [render.com](https://render.com) → **New** → **Blueprint** → connect your fork
@@ -449,9 +443,9 @@ The repo includes `render.yaml` for one-click Blueprint deployment.
 
 ### ☁️ Koyeb
 
-[![Koyeb](https://img.shields.io/badge/Koyeb-121212?style=flat-square&logo=koyeb&logoColor=white)](https://koyeb.com)
-
-The repo includes `koyeb.yaml` with port `5000` pre-configured.
+[![Koyeb](https://img.shields.io/badge/Koyeb-121212?style=flat-square&logo=koyeb&logoColor=white)](https://app.koyeb.com)
+> [!NOTE]
+> The repo includes `koyeb.yaml` with port `5000` pre-configured.
 
 1. Fork this repo
 2. [app.koyeb.com](https://app.koyeb.com) → **Create App** → **GitHub**
@@ -464,8 +458,8 @@ The repo includes `koyeb.yaml` with port `5000` pre-configured.
 ### 🪂 Fly.io
 
 [![Fly.io](https://img.shields.io/badge/Fly.io-7B3FE4?style=flat-square&logo=flydotio&logoColor=white)](https://fly.io)
-
-The repo includes `fly.toml` pre-configured (512MB RAM, port 5000, region: US East).
+> [!NOTE]
+> The repo includes `fly.toml` pre-configured (512MB RAM, port 5000, region: US East).
 
 ```bash
 curl -L https://fly.io/install.sh | sh
@@ -486,35 +480,35 @@ fly logs   # View logs
 ### 🐳 Dockerfile
 
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](https://docker.com)
-
-The repo includes a `Dockerfile` for any Docker-compatible platform.
+> [!NOTE]
+> The repo includes a `Dockerfile` for any Docker-compatible platform.
 
 ```bash
 # Build image
-docker build -t mega-md .
+docker build -t mega-mdx .
 
 # Run
 docker run -d \
   -e SESSION_ID=GlobalTechInfo/MEGA-MD_your_gist_id \
   -e OWNER_NUMBER=923001234567 \
   -p 5000:5000 \
-  --name mega-md \
-  mega-md
+  --name mega-mdx \
+  mega-mdx
 
 # Logs
-docker logs -f mega-md
+docker logs -f mega-mdx
 ```
 
 ---
 
 ### 🎮 Discord Panels (Pterodactyl)
-
-For Pterodactyl-based hosting panels (Fosshost, Skynode, etc.):
+> [!IMPORTANT]
+> For Pterodactyl-based hosting panels (Fosshost, Skynode, etc.):
 
 1. Create server with a **Node.js 20+ egg**
 2. Set startup command:
    ```
-   npm install && npm run build && npm run reset-data && npm start
+   npm install && npm run build && npm start
    ```
 3. Upload files via SFTP or file manager
 4. Add env vars in the **Startup** tab: `SESSION_ID`, `OWNER_NUMBER`
@@ -701,22 +695,21 @@ PORT=3000 npm start
 ## 📂 Project Structure
 
 ```
-MEGA-MD/
-├── plugins/              # 250+ commands (auto-loaded)
+MEGA-MDX/
+├── assets/               # Images and Stickers
+├── data/                 # JSON storage (auto-created)
+├── dist/                 # Compiled JS (git-ignored)
 ├── lib/
 │   ├── messageHandler.ts # Message routing & feature hooks
 │   ├── commandHandler.ts # Plugin loader & dispatcher
 │   ├── isAdmin.ts        # Admin detection (handles @lid JIDs)
-│   ├── session.ts        # Downloads creds from GitHub Gist
 │   └── ...
+├── plugins/              # 250+ commands (auto-loaded)
 ├── config.ts             # Centralised config from .env
 ├── index.ts              # Entry point
-├── data/                 # JSON storage (auto-created)
-├── session/              # WhatsApp session files
-├── temp/                 # Temp media (auto-cleaned hourly)
-├── dist/                 # Compiled JS (git-ignored)
 ├── sample.env            # Environment template
 ├── Dockerfile            # Docker image
+├── Procfile              # Procfile
 ├── install.sh            # One-line VPS installer
 ├── render.yaml           # Render Blueprint config
 ├── heroku.yml            # Heroku Docker config
@@ -724,7 +717,8 @@ MEGA-MD/
 ├── koyeb.yaml            # Koyeb config
 ├── fly.toml              # Fly.io config
 ├── .replit               # Replit run config
-└── replit.nix            # Replit system dependencies
+├── replit.nix            # Replit system dependencies
+└── ...
 ```
 
 ---
@@ -743,11 +737,9 @@ MEGA-MD/
 
 <div align="center">
 
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtube.com/@GlobalTechInfo)
+[![Telegram](https://img.shields.io/badge/Telegram-FF0000?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/Global_TechInfo)
 [![WhatsApp](https://img.shields.io/badge/WhatsApp_Channel-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://whatsapp.com/channel/0029VagJIAr3bbVBCpEkAM07)
 [![GitHub Issues](https://img.shields.io/badge/GitHub_Issues-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GlobalTechInfo/MEGA-MD/issues)
-
-**Owner:** +92 305 139 1007
 
 </div>
 
