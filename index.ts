@@ -52,7 +52,7 @@ setInterval(() => {
 setInterval(() => {
     const used = process.memoryUsage().rss / 1024 / 1024;
     if (used > 400) {
-        console.log(chalk.yellow('⚠️ RAM too high (>400MB), restarting bot...'));
+        printLog('warning', 'RAM too high (>400MB), restarting bot...');
         process.exit(1);
     }
 }, 30_000);
@@ -476,7 +476,7 @@ async function startQasimDev() {
                     printLog('info', '👻 STEALTH MODE ACTIVE');
                 }
 
-                console.log(chalk.yellow(`🌿Connected to => ` + JSON.stringify(QasimDev.user, null, 2)));
+                printLog('success', 'Connected to => ' + JSON.stringify(QasimDev.user, null, 2));
 
                 try {
                     const botNumber = QasimDev.user.id.split(':')[0] + '@s.whatsapp.net';
@@ -499,18 +499,17 @@ async function startQasimDev() {
                 }
 
                 await delay(1999);
-                console.log(chalk.yellow(`\n\n                  ${chalk.bold.blue(`[ ${global.botname || 'MEGA-MD'} ]`)}\n\n`));
-                console.log(chalk.cyan(`< ================================================== >`));
-                console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: GlobalTechInfo`));
-                console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: GlobalTechInfo`));
-                try { owner = JSON.parse(fs.readFileSync('./data/owner.json', 'utf-8')); } catch (_e) { /* ignore */ }
-                console.log(chalk.magenta(`${global.themeemoji || '•'} WA NUMBER: ${owner[0] || config.ownerNumber || ''}`));
-                console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: Qasim Ali`));
-                console.log(chalk.green(`${global.themeemoji || '•'} 🤖 Bot Connected Successfully! ✅`));
-                console.log(chalk.blue(`Bot Version: ${config.version}`));
-                console.log(chalk.cyan(`Loaded Commands: ${commandHandler.commands.size}`));
-                console.log(chalk.cyan(`Prefixes: ${config.prefixes.join(', ')}`));
-                console.log(chalk.gray(`Backend: ${store.getStats().backend}`));
+                      try { owner = JSON.parse(fs.readFileSync('./data/owner.json', 'utf-8')); } catch (_e) {}
+                      printLog('info',       `[ ${global.botname || 'MEGA-MD'} ]`);
+                      printLog('info',       `YT CHANNEL : GlobalTechInfo`);
+                      printLog('info',       `GITHUB     : GlobalTechInfo`);
+                      printLog('info',       `WA NUMBER  : ${owner[0] || config.ownerNumber || ''}`);
+                      printLog('info',       `CREDIT     : Qasim Ali`);
+                      printLog('success',    `Bot Connected Successfully!`);
+                      printLog('info',       `Version    : ${config.version}`);
+                      printLog('info',       `Commands   : ${commandHandler.commands.size}`);
+                      printLog('info',       `Prefixes   : ${config.prefixes.join(', ')}`);
+                      printLog('store',      `Backend    : ${store.getStats().backend}`);
                 console.log();
             }
 
