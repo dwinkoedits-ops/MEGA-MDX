@@ -1,6 +1,5 @@
 import './config.js';
 
-
 import fs from 'fs';
 import { existsSync, mkdirSync, rmSync } from 'fs';
 import path from 'path';
@@ -14,17 +13,13 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-
 import { smsg} from './lib/myfunc.js';
 import makeWASocket, {
     useMultiFileAuthState,
     DisconnectReason,
     fetchLatestBaileysVersion,
-
-
     Browsers,
     jidDecode,
-
     jidNormalizedUser,
     makeCacheableSignalKeyStore,
     delay
@@ -42,13 +37,10 @@ import {
     handleStatus,
     handleCall
 } from './lib/messageHandler.js';
-
-import settings from './config.js';
 import commandHandler from './lib/commandHandler.js';
 
 store.readFromFile();
-setInterval(() => store.writeToFile(), settings.storeWriteInterval || 10000);
-
+setInterval(() => store.writeToFile(), config.storeWriteInterval || 10000);
 
 setInterval(() => {
     if (global.gc) {
@@ -65,7 +57,7 @@ setInterval(() => {
     }
 }, 30_000);
 
-const phoneNumber = global.PAIRING_NUMBER || process.env.PAIRING_NUMBER || "923051391005";
+const phoneNumber = global.PAIRING_NUMBER || config.pairingNumber || "923051391005";
 
 // Auto-create data directory and default files on startup
 const DATA_DEFAULTS: Record<string, any> = {
@@ -100,14 +92,14 @@ try {
     owner = JSON.parse(fs.readFileSync('./data/owner.json', 'utf-8'));
 } catch { owner = []; }
 
-global.botname = process.env.BOT_NAME || "MEGA-MD";
+global.botname = config.botName || "MEGA-MD";
 global.themeemoji = "•";
 
 const pairingCode = !process.argv.includes("--qr-code");
 const useMobile = process.argv.includes("--mobile");
 
 let rl = null;
-if (process.stdin.isTTY && !process.env.PAIRING_NUMBER) {
+if (process.stdin.isTTY && !config.pairingNumber) {
     rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
@@ -118,7 +110,7 @@ const question = (text) => {
     if (rl && !rl.closed) {
         return new Promise((resolve) => rl.question(text, resolve));
     } else {
-        return Promise.resolve(settings.ownerNumber || phoneNumber);
+        return Promise.resolve(config.ownerNumber || phoneNumber);
     }
 };
 
@@ -177,7 +169,7 @@ function hasValidSession() {
 async function initializeSession() {
     ensureSessionDirectory();
 
-    const txt = global.SESSION_ID || process.env.SESSION_ID;
+    const txt = global.SESSION_ID || config.sessionId;
 
     if (!txt) {
                 if (hasValidSession()) {
@@ -228,10 +220,6 @@ async function startQasimDev() {
 
         const ghostMode = await store.getSetting('global', 'stealthMode');
         const isGhostActive = ghostMode && ghostMode.enabled;
-
-        if (isGhostActive) {
-            printLog('info', '👻 STEALTH MODE IS ACTIVE - Starting in stealth mode');
-        }
 
         const QasimDev = makeWASocket({
             version,
@@ -348,7 +336,7 @@ async function startQasimDev() {
                                 isForwarded: true,
                                 forwardedNewsletterMessageInfo: {
                                     newsletterJid: '120363319098372999@newsletter',
-                                    newsletterName: 'MEGA MD',
+                                    newsletterName: 'GlobalTechInc',
                                     serverMessageId: -1
                                 }
                             }
@@ -410,7 +398,7 @@ async function startQasimDev() {
             } else if (process.env.PAIRING_NUMBER) {
                 phoneNumberInput = process.env.PAIRING_NUMBER;
                             } else if (rl && !rl.closed) {
-                phoneNumberInput = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number 😍\nFormat: 6281376552730 (without + or spaces) : `)));
+                phoneNumberInput = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number 😍\nFormat: 923001234567 (without + or spaces) : `)));
             } else {
                 phoneNumberInput = phoneNumber;
                 printLog('info', `Using default phone number: ${phoneNumberInput}`);
@@ -418,7 +406,6 @@ async function startQasimDev() {
 
             phoneNumberInput = phoneNumberInput.replace(/[^0-9]/g, '');
 
-            // awesome-phonenumber v3+ uses .valid instead of .isValid()
             const pn = PhoneNumber('+' + phoneNumberInput);
             if (!pn.valid) {
                 printLog('error', 'Invalid phone number format');
@@ -486,9 +473,7 @@ async function startQasimDev() {
 
                 const ghostMode = await store.getSetting('global', 'stealthMode');
                 if (ghostMode && ghostMode.enabled) {
-                    printLog('info', '👻 STEALTH MODE ACTIVE - Bot is in stealth mode');
-                    console.log(chalk.gray('• No online status'));
-                    console.log(chalk.gray('• No typing indicators'));
+                    printLog('info', '👻 STEALTH MODE ACTIVE');
                 }
 
                 console.log(chalk.yellow(`🌿Connected to => ` + JSON.stringify(QasimDev.user, null, 2)));
@@ -504,7 +489,7 @@ async function startQasimDev() {
                             isForwarded: true,
                             forwardedNewsletterMessageInfo: {
                                 newsletterJid: '120363319098372999@newsletter',
-                                newsletterName: 'MEGA MD',
+                                newsletterName: 'GlobalTechInc',
                                 serverMessageId: -1
                             }
                         }
@@ -519,12 +504,12 @@ async function startQasimDev() {
                 console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: GlobalTechInfo`));
                 console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: GlobalTechInfo`));
                 try { owner = JSON.parse(fs.readFileSync('./data/owner.json', 'utf-8')); } catch (_e) { /* ignore */ }
-                console.log(chalk.magenta(`${global.themeemoji || '•'} WA NUMBER: ${owner[0] || settings.ownerNumber || ''}`));
+                console.log(chalk.magenta(`${global.themeemoji || '•'} WA NUMBER: ${owner[0] || config.ownerNumber || ''}`));
                 console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: Qasim Ali`));
                 console.log(chalk.green(`${global.themeemoji || '•'} 🤖 Bot Connected Successfully! ✅`));
-                console.log(chalk.blue(`Bot Version: ${settings.version}`));
+                console.log(chalk.blue(`Bot Version: ${config.version}`));
                 console.log(chalk.cyan(`Loaded Commands: ${commandHandler.commands.size}`));
-                console.log(chalk.cyan(`Prefixes: ${settings.prefixes.join(', ')}`));
+                console.log(chalk.cyan(`Prefixes: ${config.prefixes.join(', ')}`));
                 console.log(chalk.gray(`Backend: ${store.getStats().backend}`));
                 console.log();
             }
@@ -679,4 +664,4 @@ server.on('error', (error) => {
     }
 });
 
-// Hot reload removed - not supported in ESM
+
