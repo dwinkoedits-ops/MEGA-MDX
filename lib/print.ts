@@ -190,7 +190,7 @@ async function printMessage(message, sock) {
             (chalk as any).cyan.bold('🤖 Bot') + ' ' +
             (chalk as any).black((chalk as any).bgCyan.bold(` ${timeStr} `)) + ' ' +
             (chalk as any).magenta.bold(displayType) +
-            (chalk as any).gray.blod(fileSizeStr)
+            (chalk as any).gray.bold(fileSizeStr)
         )
 
         const senderDisplay = senderName && senderName !== senderPhone

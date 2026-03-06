@@ -572,7 +572,7 @@ async function handleGroupParticipantUpdate(sock, update) {
             case 'promote':
                 if (!isPublicMode) return;
                 if (participants && participants.length > 0) {
-                    const participant = Array.isArray(participants) ? participants[0] : participants;
+                    const _participant = Array.isArray(participants) ? participants[0] : participants;
                 }
                 const handlePromotionEvent = (await import('../plugins/promote.js')).default?.handlePromotionEvent;
                 await handlePromotionEvent(sock, id, participants, author);
@@ -581,7 +581,7 @@ async function handleGroupParticipantUpdate(sock, update) {
             case 'demote':
                 if (!isPublicMode) return;
                 if (participants && participants.length > 0) {
-                    const participant = Array.isArray(participants) ? participants[0] : participants;
+                    const _participant = Array.isArray(participants) ? participants[0] : participants;
                 }
                 const handleDemotionEvent = (await import('../plugins/demote.js')).default?.handleDemotionEvent;
                 await handleDemotionEvent(sock, id, participants, author);
@@ -589,7 +589,7 @@ async function handleGroupParticipantUpdate(sock, update) {
 
             case 'add':
                 if (participants && participants.length > 0) {
-                    const participant = Array.isArray(participants) ? participants[0] : participants;
+                    const _participant = Array.isArray(participants) ? participants[0] : participants;
                 }
                 const { handleJoinEvent } = await import('../plugins/welcome.js');
                 await handleJoinEvent(sock, id, participants);
@@ -597,7 +597,7 @@ async function handleGroupParticipantUpdate(sock, update) {
 
             case 'remove':
                 if (participants && participants.length > 0) {
-                    const participant = Array.isArray(participants) ? participants[0] : participants;
+                    const _participant = Array.isArray(participants) ? participants[0] : participants;
                 }
                 const handleLeaveEvent = (await import('../plugins/goodbye.js')).default?.handleLeaveEvent;
                 await handleLeaveEvent(sock, id, participants);
