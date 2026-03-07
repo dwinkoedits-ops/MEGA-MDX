@@ -7,6 +7,7 @@ import chalk from 'chalk';
 import syntaxerror from 'syntax-error';
 import { parsePhoneNumber as PhoneNumber } from 'awesome-phonenumber';
 import readline from 'readline';
+import QRCode from 'qrcode';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -451,12 +452,10 @@ async function startQasimDev() {
             if (qr) {
                 if (!pairingCode) {
                     try {
-                        const qrcode = (await import('qrcode-terminal' as any)).default;
-                        qrcode.generate(qr, { small: true });
+                        console.log(await QRCode.toString(qr, { type: 'terminal', small: true }));
                     } catch (_e) { console.log('QR:', qr); }
                 }
             }
-
 
             if (connection === "open") {
                 printLog('success', 'Bot connected successfully!');
