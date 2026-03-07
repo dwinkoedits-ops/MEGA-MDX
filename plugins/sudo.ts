@@ -1,4 +1,4 @@
-import settings from '../config.js';
+import config from '../config.js';
 import { addSudo, removeSudo, getSudoList } from '../lib/index.js';
 import isOwnerOrSudo from '../lib/isOwner.js';
 import { cleanJid } from '../lib/isOwner.js';
@@ -89,7 +89,7 @@ export default {
         }
 
         if (sub === 'del' || sub === 'remove') {
-            const ownerNumberClean = cleanJid(settings.ownerNumber);
+            const ownerNumberClean = cleanJid(config.ownerNumber);
             if (displayId === ownerNumberClean) {
                 await sock.sendMessage(chatId, { text: '❌ *Action Denied:* Cannot remove the Main Owner.' }, { quoted: message });
                 return;
