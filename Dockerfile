@@ -1,16 +1,15 @@
-FROM quay.io/qasimtech/mega-bot:latest
+FROM quay.io/qasimtech/mega-md:latest
 
-WORKDIR /app
+WORKDIR /root/mega-md
 
-COPY package.json ./
+COPY package*.json ./
 
-ARG PKG_MANAGER=npm
-RUN $PKG_MANAGER install --legacy-peer-deps
+RUN npm install
 
 COPY . .
 
-RUN $PKG_MANAGER run build
+RUN npm run build
 
 EXPOSE 5000
 
-CMD ["node", "dist/index.js"]
+CMD ["npm", "start"]
