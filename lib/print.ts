@@ -293,4 +293,3 @@ function printLog(type, message) {
 
 export { printMessage, printLog };
 
-

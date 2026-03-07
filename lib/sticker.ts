@@ -1,5 +1,4 @@
 import { Sticker, StickerTypes } from 'stickers-formatter';
-import fetch from 'node-fetch';
 import path from 'path';
 import crypto from 'crypto';
 import webp from 'node-webpmux';

@@ -2,7 +2,6 @@
 import axios from 'axios'
 import BodyForm from 'form-data'
 import { fileTypeFromBuffer } from 'file-type'
-import fetch from 'node-fetch'
 import fs from 'fs'
 import * as cheerio from 'cheerio'
 

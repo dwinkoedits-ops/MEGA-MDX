@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { dataFile } from '../lib/paths.js';
-import fetch from 'node-fetch';
 import store from '../lib/lightweight_store.js';
 
 const MONGO_URL = process.env.MONGO_URL;

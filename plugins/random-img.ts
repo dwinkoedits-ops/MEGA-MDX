@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 
 const imageUrls = {
     chinese: 'https://raw.githubusercontent.com/GlobalTechInfo/GLOBAL-XMD/master/src/media/tiktokpics/china.json',

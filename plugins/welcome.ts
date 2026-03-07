@@ -1,6 +1,5 @@
 import { handleWelcome } from '../lib/welcome.js';
 import { isWelcomeOn, getWelcome } from '../lib/index.js';
-import fetch from 'node-fetch';
 
 export default {
   command: 'welcome',

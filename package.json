@@ -62,7 +62,6 @@
     "express": "^4.22.1",
     "file-type": "^19.6.0",
     "form-data": "^4.0.1",
-    "fs-extra": "^11.2.0",
     "gspeak": "^0.0.3",
     "human-readable": "^0.2.1",
     "libphonenumber-js": "^1.11.18",
@@ -72,7 +71,6 @@
     "mumaker": "^2.0.0",
     "mysql2": "^3.16.0",
     "node-cache": "^5.1.2",
-    "node-fetch": "^3.3.2",
     "node-webpmux": "^3.1.0",
     "pg": "^8.16.3",
     "qrcode": "^1.5.4",
@@ -89,8 +87,8 @@
     "eslint": "^10.0.2",
     "madge": "^8.0.0",
     "nodemon": "^3.1.14",
-    "typescript": "^5.0.0",
     "ts-unused-exports": "^11.0.1",
+    "typescript": "^5.0.0",
     "vitest": "^4.0.18"
   },
   "overrides": {

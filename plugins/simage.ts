@@ -1,7 +1,7 @@
 import sharp from 'sharp';
 import fs from 'fs';
 import fsPromises from 'fs/promises';
-import fse from 'fs-extra';
+
 import path from 'path';
 import { downloadContentFromMessage } from '@whiskeysockets/baileys';
 
@@ -11,7 +11,7 @@ if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
 const scheduleFileDeletion = (filePath) => {
     setTimeout(async () => {
         try {
-            await fse.remove(filePath);
+            await fsPromises.unlink(filePath);
             console.log(`File deleted: ${filePath}`);
         } catch(error: any) {
             console.error(`Failed to delete file:`, error);

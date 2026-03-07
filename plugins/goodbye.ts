@@ -1,6 +1,5 @@
 import { handleGoodbye } from '../lib/welcome.js';
 import { isGoodByeOn, getGoodbye } from '../lib/index.js';
-import fetch from 'node-fetch';
 
 async function handleLeaveEvent(sock, id, participants) {
     const isGoodbyeEnabled = await isGoodByeOn(id);

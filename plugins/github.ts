@@ -1,5 +1,4 @@
 import moment from 'moment-timezone';
-import fetch from 'node-fetch';
 import fs from 'fs';
 import path from 'path';
 

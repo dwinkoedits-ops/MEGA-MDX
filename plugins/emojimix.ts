@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import fs from 'fs';
 import { exec } from 'child_process';
 import path from 'path';
@@ -58,7 +57,7 @@ export default {
       const outputFile = path.join(tmpDir, `sticker_${Date.now()}.webp`).replace(/\\/g, '/');
 
       const imageResponse = await fetch(imageUrl);
-      const buffer = await imageResponse.buffer();
+      const buffer = Buffer.from(await imageResponse.arrayBuffer());
       fs.writeFileSync(tempFile, buffer);
 
       const ffmpegCommand =

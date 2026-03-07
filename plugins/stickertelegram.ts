@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 const delay = time => new Promise(res => setTimeout(res, time));
 import fs from 'fs';
 import path from 'path';
@@ -86,7 +85,7 @@ export default {
 
             const fileUrl = `https://api.telegram.org/file/bot${botToken}/${fileData.result.file_path}`;
             const imageResponse = await fetch(fileUrl);
-            const imageBuffer = await imageResponse.buffer();
+            const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
             const tempInput = path.join(tmpDir, `temp_${Date.now()}_${i}`);
             const tempOutput = path.join(tmpDir, `sticker_${Date.now()}_${i}.webp`);
             fs.writeFileSync(tempInput, imageBuffer);
