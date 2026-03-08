@@ -22,7 +22,7 @@ export default {
   aliases: ['alamydl', 'alamydownload'],
   category: 'download',
   description: 'Download image or video from Alamy URL',
-  usage: '${prefix}alamy <Alamy URL>',
+  usage: `${prefix}alamy <Alamy URL>`,
 
   async handler(sock: any, message: any, args: any, context: BotContext) {
     const { chatId, config } = context
