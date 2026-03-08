@@ -10,8 +10,8 @@ export default {
     ownerOnly: true,
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
-        const { chatId, senderId, channelInfo, config: botConfig } = context;
-        const prefix = botConfig.prefix;
+        const { chatId, senderId, channelInfo, config } = context;
+        const prefix = config.prefix;
 
         const fullText = args.join(' ');
         const pipeIndex = fullText.indexOf('|');
@@ -56,8 +56,8 @@ export default {
             }, { quoted: message });
         }
 
-        const replyConfig = await initConfig();
-        const exists = replyConfig.replies.find((r: any) => r.trigger === trigger.toLowerCase());
+        const replyData = await initConfig();
+        const exists = replyData.replies.find((r: any) => r.trigger === trigger.toLowerCase());
 
         if (exists) {
             return await sock.sendMessage(chatId, {
@@ -66,7 +66,7 @@ export default {
             }, { quoted: message });
         }
 
-        replyConfig.replies.push({
+        replyData.replies.push({
             trigger: trigger.toLowerCase(),
             response,
             exactMatch,
@@ -74,7 +74,7 @@ export default {
             createdAt: Date.now()
         });
 
-        await saveConfig(replyConfig);
+        await saveConfig(replyData);
 
         await sock.sendMessage(chatId, {
             text: `✅ *Auto-Reply Added!*\n\n` +
