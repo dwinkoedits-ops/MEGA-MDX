@@ -27,16 +27,17 @@ export default {
     aliases: ['ai', 'chat', 'ask', 'mistral', 'llama'],
     category: 'ai',
     description: 'Ask a question to AI',
-    usage: '.gpt <question>',
+    usage: '${prefix}gpt <question>',
 
     async handler(sock: any, message: any, args: string[], context: BotContext) {
-        const chatId = context.chatId || message.key.remoteJid;
+        const { chatId, config } = context;
+        const prefix = config.prefix
         const query = args.join(' ').trim();
 
         if (!query) {
             return sock.sendMessage(
                 chatId,
-                { text: '🤖 *AI Assistant*\n\nUsage: `.gpt <your question>`\nExample: `.gpt explain quantum physics`' },
+                { text: '🤖 *AI Assistant*\n\nUsage: `${prefix}gpt <your question>`\nExample: `${prefix}gpt explain quantum physics`' },
                 { quoted: message }
             );
         }
