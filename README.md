@@ -692,34 +692,29 @@ PORT=3000 npm start
 
 ---
 
-## 📂 Project Structure
+## 🧪 Testing
 
+The codebase has a comprehensive test suite covering all core systems:
+
+```bash
+npm test                # Run all 178 tests
+npm run test:coverage   # Run with coverage report
+npm run test:watch      # Watch mode during development
 ```
-MEGA-MDX/
-├── assets/               # Images and Stickers
-├── data/                 # JSON storage (auto-created)
-├── dist/                 # Compiled JS (git-ignored)
-├── lib/
-│   ├── messageHandler.ts # Message routing & feature hooks
-│   ├── commandHandler.ts # Plugin loader & dispatcher
-│   ├── isAdmin.ts        # Admin detection (handles @lid JIDs)
-│   └── ...
-├── plugins/              # 250+ commands (auto-loaded)
-├── config.ts             # Centralised config from .env
-├── index.ts              # Entry point
-├── sample.env            # Environment template
-├── Dockerfile            # Docker image
-├── Procfile              # Procfile
-├── install.sh            # One-line VPS installer
-├── render.yaml           # Render Blueprint config
-├── heroku.yml            # Heroku Docker config
-├── app.json              # Heroku app manifest
-├── koyeb.yaml            # Koyeb config
-├── fly.toml              # Fly.io config
-├── .replit               # Replit run config
-├── replit.nix            # Replit system dependencies
-└── ...
-```
+
+| Test Suite | What's Covered |
+|---|---|
+| Unit — `myfunc` | 21 utility function tests with real input/output assertions |
+| Unit — `commandHandler` | Command registration, alias routing, toggle, suggestions |
+| Unit — `isOwner` | JID matching, device suffix stripping, sudo checks |
+| Unit — `isBanned` | File-based ban list read/write |
+| Unit — `paths` | Data directory resolution |
+| Integration — plugins | ALL plugins load, no duplicate commands/aliases, correct field types |
+| Integration — `messageHandler` | Full message flow, banned users, error handling |
+| Integration — group events | add/remove/promote/demote without crashing |
+| Integration — call handling | Anticall reject, warn, empty call safety |
+
+> Uses [Vitest](https://vitest.dev) with a custom Baileys socket mock that simulates real WhatsApp message flows without requiring a live connection.
 
 ---
 
