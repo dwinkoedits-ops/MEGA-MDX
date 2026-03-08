@@ -16,21 +16,21 @@
 
 import type { BotContext } from '../types.js';
 import axios from 'axios';
+import config from '../config.js';
 
 export default {
   command: 'alamy',
   aliases: ['alamydl', 'alamydownload'],
   category: 'download',
   description: 'Download image or video from Alamy URL',
-  usage: `${prefix}alamy <Alamy URL>`,
+  usage: `${config.prefix}alamy <Alamy URL>`,
 
   async handler(sock: any, message: any, args: any, context: BotContext) {
-    const { chatId, config } = context
-    const prefix = config.prefix
+    const { chatId } = context
     const url = args?.[0]?.trim();
 
     if (!url) {
-      return await sock.sendMessage(chatId, { text: `Please provide an Alamy URL.\nExample: ${prefix}alamy https://www.alamy.com/video/beautiful-lake...` }, { quoted: message });
+      return await sock.sendMessage(chatId, { text: `Please provide an Alamy URL.\nExample: ${config.prefix}alamy https://www.alamy.com/video/beautiful-lake...` }, { quoted: message });
     }
 
     try {
