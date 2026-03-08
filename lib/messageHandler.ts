@@ -241,7 +241,8 @@ async function handleMessages(sock, messageUpdate) {
                             channelInfo,
                             rawText: usedPrefix + commandText,
                             userMessage: (usedPrefix + commandText).toLowerCase(),
-                            messageText: usedPrefix + commandText
+                            messageText: usedPrefix + commandText,
+                            config
                         };
 
                         try {
@@ -504,7 +505,8 @@ async function handleMessages(sock, messageUpdate) {
             channelInfo,
             rawText,
             userMessage,
-            messageText
+            messageText,
+            config
         };
 
         try {
