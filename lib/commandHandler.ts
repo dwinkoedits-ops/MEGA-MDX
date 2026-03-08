@@ -29,20 +29,19 @@ class CommandHandler {
     const pluginsPath = path.join(process.cwd(), 'dist/plugins');
     if (!fs.existsSync(pluginsPath)) return;
 
-    fs.watch(pluginsPath, async (eventType, filename) => {
+    fs.watch(pluginsPath, async (_eventType: string, filename: string | null) => {
       if (filename && filename.endsWith('.js')) {
         const filePath = path.join(pluginsPath, filename);
         try {
           if (fs.existsSync(filePath)) {
-                const plugin = (await import(pathToFileURL(filePath).href)).default || (await import(pathToFileURL(filePath).href));
+            const plugin = (await import(pathToFileURL(filePath).href)).default || (await import(pathToFileURL(filePath).href));
             if (plugin.command) {
               this.registerCommand(plugin);
-
               if (plugin.isPrefixless === true) {
                 const cmdKey = plugin.command.toLowerCase();
                 this.prefixlessCommands.set(cmdKey, cmdKey);
                 if (plugin.aliases && Array.isArray(plugin.aliases)) {
-                  plugin.aliases.forEach(alias => {
+                  plugin.aliases.forEach((alias: string) => {
                     this.prefixlessCommands.set(alias.toLowerCase(), cmdKey);
                   });
                 }
@@ -68,13 +67,11 @@ class CommandHandler {
 
         if (plugin.command) {
           this.registerCommand(plugin);
-
           if (plugin.isPrefixless === true) {
             const cmdKey = plugin.command.toLowerCase();
             this.prefixlessCommands.set(cmdKey, cmdKey);
-
             if (plugin.aliases && Array.isArray(plugin.aliases)) {
-              plugin.aliases.forEach(alias => {
+              plugin.aliases.forEach((alias: string) => {
                 this.prefixlessCommands.set(alias.toLowerCase(), cmdKey);
               });
             }
@@ -86,10 +83,9 @@ class CommandHandler {
     }
   }
 
-  registerCommand(plugin) {
+  registerCommand(plugin: any) {
     const { command, aliases = [], category = 'misc', handler } = plugin;
 
-    // INTEGRITY CHECK
     if (!command || typeof handler !== 'function') {
       console.error(`[SKIP] Plugin at ${command || 'unknown'} is missing a valid command name or handler function.`);
       return;
@@ -97,7 +93,6 @@ class CommandHandler {
 
     const cmdKey = command.toLowerCase();
 
-    // DUPLICATE CHECK
     if (this.commands.has(cmdKey)) {
       console.warn(`[REPLACED] Command "${cmdKey}" was already registered and has been overwritten.`);
     }
@@ -109,7 +104,7 @@ class CommandHandler {
       avgMs: 0
     });
 
-    const monitoredHandler = async (sock, message, ...args) => {
+    const monitoredHandler = async (sock: any, message: any, ...args: any[]) => {
       const s = this.stats.get(cmdKey);
 
       if (this.disabledCommands.has(cmdKey)) {
@@ -164,7 +159,7 @@ class CommandHandler {
     }
   }
 
-  toggleCommand(name) {
+  toggleCommand(name: string) {
     const cmd = name.toLowerCase();
     if (this.disabledCommands.has(cmd)) {
       this.disabledCommands.delete(cmd);
@@ -175,8 +170,8 @@ class CommandHandler {
     }
   }
 
-  _levenshtein(a, b) {
-    const tmp = [];
+  _levenshtein(a: string, b: string) {
+    const tmp: number[][] = [];
     for (let i = 0; i <= a.length; i++) tmp[i] = [i];
     for (let j = 0; j <= b.length; j++) tmp[0][j] = j;
     for (let i = 1; i <= a.length; i++) {
@@ -191,9 +186,9 @@ class CommandHandler {
     return tmp[a.length][b.length];
   }
 
-  findSuggestion(cmd) {
+  findSuggestion(cmd: string) {
     const allNames = [...this.commands.keys(), ...this.aliases.keys()];
-    let bestMatch = null;
+    let bestMatch: string | null = null;
     let minDistance = 3;
 
     for (const name of allNames) {
@@ -213,7 +208,7 @@ class CommandHandler {
       errors: data.errors,
       average_speed: `${data.avgMs.toFixed(3)}ms`,
       status: this.disabledCommands.has(name) ? 'OFF' : 'ON'
-    })).sort((a, b) => b.usage - a.usage);
+    })).sort((a: any, b: any) => b.usage - a.usage);
   }
 
   resetStats() {
@@ -235,7 +230,7 @@ class CommandHandler {
     await this.loadCommands();
   }
 
-  getCommand(text, prefixes) {
+  getCommand(text: string, prefixes: string[]) {
     const usedPrefix = prefixes.find(p => text.startsWith(p));
     const firstWord = text.trim().split(' ')[0].toLowerCase();
 
@@ -261,7 +256,7 @@ class CommandHandler {
     if (suggestion) {
       return {
         command: suggestion,
-        handler: async (sock, message) => {
+        handler: async (sock: any, message: any) => {
           const chatId = message.key.remoteJid;
           await sock.sendMessage(chatId, {
             text: `❓ Did you mean *${usedPrefix}${suggestion}*?`
@@ -273,11 +268,10 @@ class CommandHandler {
     return null;
   }
 
-  getCommandsByCategory(category) {
+  getCommandsByCategory(category: string) {
     return this.categories.get(category.toLowerCase()) || [];
   }
 }
 
 export default new CommandHandler();
-
-
+                         
