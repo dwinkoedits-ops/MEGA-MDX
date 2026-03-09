@@ -14,6 +14,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 import { smsg } from './lib/myfunc.js';
+import { compileAll } from './lib/compile.js';
 import makeWASocket, {
     useMultiFileAuthState,
     DisconnectReason,
@@ -540,6 +541,7 @@ async function startQasimDev(): Promise<any> {
 }
 
 async function main() {
+    await compileAll();
     await commandHandler.loadCommands();
     printLog('info', 'Starting MEGA MD BOT...');
     await initializeSession();
