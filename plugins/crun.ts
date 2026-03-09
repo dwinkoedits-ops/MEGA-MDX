@@ -17,7 +17,30 @@ export default {
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;
-        let code = args.join(' ').trim();
+
+        // Get code from: args, quoted message, or document
+        const quoted = message?.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+        const quotedText = quoted?.conversation || quoted?.extendedTextMessage?.text || '';
+        const hasDoc = !!quoted?.documentMessage;
+
+        let code = '';
+
+        if (hasDoc) {
+            const { downloadMediaMessage } = await import('@whiskeysockets/baileys');
+            const msgObj = { message: { documentMessage: quoted.documentMessage } };
+            const buf = await downloadMediaMessage(msgObj as any, 'buffer', {} as any) as Buffer;
+            code = buf.toString('utf8');
+        } else {
+            // Preserve newlines from raw message text
+            const rawText = message?.message?.conversation ||
+                            message?.message?.extendedTextMessage?.text || '';
+            // Strip the command prefix and command name from raw text
+            const cmdMatch = rawText.match(/^[.!/]\w+\s*/);
+            code = cmdMatch ? rawText.slice(cmdMatch[0].length) : args.join(' ');
+            if (!code.trim()) code = quotedText;
+        }
+
+        code = code.trim();
 
         if (!code) {
             return await sock.sendMessage(chatId, {

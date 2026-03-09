@@ -1,6 +1,9 @@
 import type { BotContext } from '../types.js';
 import { dataFile } from '../lib/paths.js';
+import store from '../lib/lightweight_store.js';
 import fs from 'fs';
+
+const HAS_DB = !!(process.env.MONGO_URL || process.env.POSTGRES_URL || process.env.MYSQL_URL || process.env.DB_URL);
 
 const chatState = new Map<string, { enabled: boolean; lastActivity: number }>();
 const REPLIES_FILE = dataFile('autoreplies.json');
@@ -13,8 +16,12 @@ function matches(text: string, patterns: (string | RegExp)[]): boolean {
     return patterns.some(p => typeof p === 'string' ? t.includes(p) : p.test(t));
 }
 
-function loadCustomReplies(): { trigger: string; response: string; exactMatch: boolean }[] {
+async function loadCustomReplies(): Promise<{ trigger: string; response: string; exactMatch: boolean }[]> {
     try {
+        if (HAS_DB) {
+            const data = await store.getSetting('global', 'autoreplies');
+            return data?.replies || [];
+        }
         if (fs.existsSync(REPLIES_FILE)) {
             const data = JSON.parse(fs.readFileSync(REPLIES_FILE, 'utf-8'));
             return data.replies || [];
@@ -23,9 +30,9 @@ function loadCustomReplies(): { trigger: string; response: string; exactMatch: b
     return [];
 }
 
-function checkCustomReply(text: string, name: string): string | null {
+async function checkCustomReply(text: string, name: string): Promise<string | null> {
     const t = low(text);
-    for (const r of loadCustomReplies()) {
+    for (const r of await loadCustomReplies()) {
         const trigger = r.trigger.toLowerCase();
         const hit = r.exactMatch ? t === trigger : t.includes(trigger);
         if (hit) return r.response.replace('{name}', name);
@@ -298,13 +305,13 @@ const KB: { patterns: (string | RegExp)[]; responses: string[] }[] = [
     },
 ];
 
-function getResponse(text: string, senderName: string): string {
+async function getResponse(text: string, senderName: string): Promise<string> {
     const t = low(text);
 
-    const custom = checkCustomReply(text, senderName);
+    const custom = await checkCustomReply(text, senderName);
     if (custom) return custom;
 
-    if (/what.?time|current time|time (is it|now|please)|time batao|time kya/.test(t)) {
+    if (/what.?time|current time|time batao|time kya|time is it|time now|time please/.test(t)) {
         const now = new Date();
         return `🕐 *Current Time:* ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}\n📅 *Date:* ${now.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}`;
     }
@@ -336,7 +343,7 @@ function getResponse(text: string, senderName: string): string {
         `Hmm, I'm not sure about that! 🤔 Try asking differently.`,
         "I didn't quite catch that! Could you rephrase? 🙏",
         "That's beyond me right now! Try \`.chatbot\` for AI-powered answers 🤖",
-        `Sorry ${senderName}, I didn't get that. Type \`.menu\` for available commands!`,
+        "Sorry " + senderName + ", I didn't get that. Type .menu for available commands!",
     ]);
 }
 
@@ -406,7 +413,7 @@ export default {
         await sock.sendPresenceUpdate('paused', chatId);
 
         await sock.sendMessage(chatId, {
-            text: getResponse(userText, senderName),
+            text: await getResponse(userText, senderName),
             ...channelInfo
         }, { quoted: message });
     }
@@ -431,7 +438,7 @@ export async function handleLocalBotMessage(
         await sock.sendPresenceUpdate('composing', chatId);
         await new Promise(r => setTimeout(r, 600 + Math.random() * 1000));
         await sock.sendPresenceUpdate('paused', chatId);
-        await sock.sendMessage(chatId, { text: getResponse(text, senderName), ...channelInfo }, { quoted: message });
+        await sock.sendMessage(chatId, { text: await getResponse(text, senderName), ...channelInfo }, { quoted: message });
     } catch {}
     return true;
 }
