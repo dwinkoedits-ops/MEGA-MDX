@@ -4,7 +4,7 @@ WORKDIR /root/mega-mdx
 
 # Layer 1: Copy only package files first — cached unless dependencies change
 COPY package.json package-lock.json ./
-RUN npm install --legacy-peer-deps
+RUN npm install
 
 # Layer 2: Copy source and build — only re-runs when code changes
 COPY . .
