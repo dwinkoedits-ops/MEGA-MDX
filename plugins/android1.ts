@@ -1,27 +1,28 @@
 import type { BotContext } from '../types.js';
 import pkg from 'api-qasim';
-const QasimAny = pkg as any;
+const Qasim = pkg as any;
 import axios from 'axios';
+import config from '../config.js';
 
 export default {
   command: 'apkdl',
   aliases: ['apk', 'an1apk', 'appdl', 'app'],
   category: 'download',
   description: 'Search APKs and download by reply',
-  usage: '.apkdl <apk_name>',
+  usage: `{config.prefix}apkdl <apk_name>`,
 
   async handler(sock: any, message: any, args: any, context: BotContext) {
-    const chatId = context.chatId || message.key.remoteJid;
+    const chatId = context.chatId;
     const query = args.join(' ').trim();
 
     try {
       if (!query) {
-        return await sock.sendMessage(chatId, { text: '*Please provide an APK name.*\nExample: .apkdl Telegram' }, { quoted: message });
+        return await sock.sendMessage(chatId, { text: `*Please provide an APK name.*\nExample: ${config.prefix}apkdl Telegram` }, { quoted: message });
       }
 
       await sock.sendMessage(chatId, { text: '🔎 Searching for APKs...' }, { quoted: message });
 
-      const res = await QasimAny.apksearch(query);
+      const res = await Qasim.apksearch(query);
 
       if (!res?.data || !Array.isArray(res.data) || res.data.length === 0) {
         return await sock.sendMessage(chatId, { text: '❌ No APKs found.' }, { quoted: message });
