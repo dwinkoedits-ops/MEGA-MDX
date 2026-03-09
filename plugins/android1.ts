@@ -9,7 +9,7 @@ export default {
   aliases: ['apk', 'an1apk', 'appdl', 'app'],
   category: 'download',
   description: 'Search APKs and download by reply',
-  usage: `{config.prefix}apkdl <apk_name>`,
+  usage: `${config.prefix}apkdl <apk_name>`,
 
   async handler(sock: any, message: any, args: any, context: BotContext) {
     const chatId = context.chatId;
