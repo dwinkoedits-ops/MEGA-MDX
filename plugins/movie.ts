@@ -8,7 +8,7 @@ export default {
     aliases: ['film', 'bollywood', 'omdb', 'imdb'],
     category: 'info',
     description: 'Search movie info, ratings, cast, plot',
-    usage: '${prefix}movie <movie name>\n${prefix}movie Pathaan\n${prefix}movie Jawan 2023',
+    usage: '.movie <movie name>\n.movie Pathaan\n.movie Jawan 2023',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;

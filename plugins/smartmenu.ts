@@ -105,7 +105,7 @@ export default {
 
         catCmds.forEach((cmdName: any, index: any) => {
           const isLast = index === catCmds.length - 1;
-          const prefix = isLast ? '└' : '├';
+          const treeChar = isLast ? "└" : "├";
 
           const isOff = CommandHandler.disabledCommands.has(cmdName.toLowerCase());
           const cmdStats = stats.find(s => s.command === cmdName.toLowerCase());
@@ -119,7 +119,8 @@ export default {
             else if (ms > 1000) speedTag = ` ${slowEmoji}`;
           }
 
-          menuText += `${prefix}─ ${statusIcon} .${cmdName}${speedTag}\n`;
+          menuText += `${treeChar}─ ${statusIcon} .${cmdName}${speedTag}
+`;
         });
         menuText += `\n`;
       }

@@ -123,7 +123,7 @@ export default {
     aliases: ['dist', 'distancecalc', 'citydist'],
     category: 'utility',
     description: 'Calculate distance between two cities with flight and driving time estimates',
-    usage: '${prefix}distance <city1> to <city2>\nExample: .distance karachi to dubai',
+    usage: '.distance <city1> to <city2>\nExample: .distance karachi to dubai',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;

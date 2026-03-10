@@ -352,7 +352,7 @@ export default {
     aliases: ['lbot2', 'offlinebot2', 'localai2', 'lb2'],
     category: 'ai',
     description: 'Built-in offline chatbot — no internet, no API, instant responses',
-    usage: '${prefix}localbot2 on/off\n${prefix}localbot2 <message>',
+    usage: '.localbot2 on/off\n.localbot2 <message>',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo, senderId } = context;

@@ -239,7 +239,7 @@ npm start
 ### One-Line VPS Installer
 
 ```bash
-sudo bash <(curl -fsSL https://raw.githubusercontent.com/GlobalTechInfo/MEGA-MDX/main/install.sh)
+sudo bash <(curl -fsSL https://raw.githubusercontent.com/GlobalTechInfo/MEGA-MDX/main/lib/install.sh)
 ```
 > [!IMPORTANT]
 > This automatically installs Node.js 20, ffmpeg, libvips, libwebp, PM2, clones the repo, builds it, and sets up data files.
@@ -301,7 +301,7 @@ npm start
 
 **One-line install (recommended):**
 ```bash
-sudo bash <(curl -fsSL https://raw.githubusercontent.com/GlobalTechInfo/MEGA-MDX/main/install.sh)
+sudo bash <(curl -fsSL https://raw.githubusercontent.com/GlobalTechInfo/MEGA-MDX/main/lib/install.sh)
 ```
 
 **Manual:**
@@ -452,11 +452,11 @@ heroku logs --tail
 
 [![Koyeb](https://img.shields.io/badge/Koyeb-121212?style=flat-square&logo=koyeb&logoColor=white)](https://app.koyeb.com)
 > [!NOTE]
-> The repo includes `koyeb.yaml` with port `5000` pre-configured.
+> The repo includes `koyeb.json` with port `5000` pre-configured.
 
 1. Fork this repo
 2. [app.koyeb.com](https://app.koyeb.com) → **Create App** → **GitHub**
-3. Select your fork — Koyeb reads `koyeb.yaml`
+3. Select your fork — Koyeb reads `koyeb.json`
 4. Set `SESSION_ID` and `OWNER_NUMBER` in env vars
 5. Deploy
 

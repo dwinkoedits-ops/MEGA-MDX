@@ -12,7 +12,7 @@ export default {
     aliases: ['encrypt', 'decrypt', 'encode', 'crypt'],
     category: 'utility',
     description: 'Encrypt or decrypt text using Caesar, Vigenere, or XOR cipher',
-    usage: '${prefix}cipher <type> <encode|decode> <key> <text>',
+    usage: '.cipher <type> <encode|decode> <key> <text>',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;

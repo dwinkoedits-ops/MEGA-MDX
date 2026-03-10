@@ -6,7 +6,7 @@ export default {
     aliases: ['drug', 'medinfo', 'druginfo', 'med'],
     category: 'info',
     description: 'Get medicine/drug info: uses, side effects, warnings',
-    usage: '${prefix}medicine aspirin\n${prefix}medicine paracetamol',
+    usage: '.medicine aspirin\n.medicine paracetamol',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;

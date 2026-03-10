@@ -25,7 +25,7 @@ export default {
     aliases: ['compress', 'decompress', 'rlecompress'],
     category: 'utility',
     description: 'Compress or decompress text/files using Run-Length Encoding (C++ powered)',
-    usage: '${prefix}rle compress <text or reply to media>\n${prefix}rle decompress <encoded or reply to compressed file>',
+    usage: '.rle compress <text or reply to media>\n.rle decompress <encoded or reply to compressed file>',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;

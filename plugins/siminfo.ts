@@ -10,7 +10,7 @@ export default {
     aliases: ['phoneinfo', 'numinfo', 'carrier', 'phinfo'],
     category: 'utility',
     description: 'Lookup phone number country, carrier and type',
-    usage: '${prefix}siminfo <phone number with country code>\nExample: .siminfo +923001234567',
+    usage: '.siminfo <phone number with country code>\nExample: .siminfo +923001234567',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;

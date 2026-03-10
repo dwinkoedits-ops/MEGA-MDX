@@ -10,7 +10,7 @@ export default {
     aliases: ['sudokugen', 'sudokusolve', 'sdk'],
     category: 'utility',
     description: 'Generate Sudoku puzzles or solve them',
-    usage: '${prefix}sudoku generate [easy|medium|hard]\n${prefix}sudoku solve <81 digits, 0 for empty>',
+    usage: '.sudoku generate [easy|medium|hard]\n.sudoku solve <81 digits, 0 for empty>',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;

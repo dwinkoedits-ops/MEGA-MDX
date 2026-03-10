@@ -35,7 +35,7 @@ export default {
     aliases: ['wordfreq', 'topwords', 'wordcount'],
     category: 'utility',
     description: 'Analyze text and show top 20 most used words with stats',
-    usage: '${prefix}wordcloud <text or reply to any message/file>',
+    usage: '.wordcloud <text or reply to any message/file>',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;

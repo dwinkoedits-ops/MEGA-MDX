@@ -35,7 +35,7 @@ export default {
     aliases: ['urlencode', 'urlextract', 'links', 'extractlinks'],
     category: 'utility',
     description: 'Encode/decode URLs or extract all links from text/files',
-    usage: '${prefix}urldecode <url>\n${prefix}urlencode <text>\n${prefix}extractlinks <text or reply to file>',
+    usage: '.urldecode <url>\n.urlencode <text>\n.extractlinks <text or reply to file>',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo, userMessage } = context;

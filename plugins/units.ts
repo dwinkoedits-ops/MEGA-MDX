@@ -159,7 +159,7 @@ export default {
     aliases: ['convert', 'conv', 'unit'],
     category: 'utility',
     description: 'Convert between 100+ units — length, weight, speed, data, temperature and more',
-    usage: '${prefix}units <value> <from> to <to>\nExample: .units 100 km to miles',
+    usage: '.units <value> <from> to <to>\nExample: .units 100 km to miles',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;

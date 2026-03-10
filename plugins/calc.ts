@@ -47,7 +47,7 @@ export default {
     aliases: ['math', 'calculate', 'solve'],
     category: 'utility',
     description: 'Advanced calculator',
-    usage: '${prefix}calc <expression>',
+    usage: '.calc <expression>',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;

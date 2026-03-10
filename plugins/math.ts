@@ -28,8 +28,7 @@ export default {
   initialized: false,
 
   async handler(sock: any, message: any, args: any, _context: BotContext) {
-    const { chatId, config } = _context;
-    const prefix = config.prefix;
+    const { chatId } = _context;
 
     if (mathGames[chatId]) {
       return sock.sendMessage(chatId, { text: '⚠️ Solve the current problem first!' }, { quoted: mathGames[chatId].msg });
@@ -38,7 +37,7 @@ export default {
     const mode = args[0]?.toLowerCase();
     if (!mode || !(mode in modes)) {
       return sock.sendMessage(chatId, {
-        text: `🧮 *Available Difficulties:*\n\n${Object.keys(modes).join(' | ')}\n\n_Example: ${prefix}math normal_`
+        text: `🧮 *Available Difficulties:*\n\n${Object.keys(modes).join(' | ')}\n\n_Example: .math normal_`
       }, { quoted: message });
     }
 

@@ -25,7 +25,7 @@ export default {
     aliases: ['dnaencode', 'dnadecode'],
     category: 'utility',
     description: 'Encode any text or media to DNA sequence (ATCG) or decode it back',
-    usage: '${prefix}dna encode <text or reply to media>\n${prefix}dna decode <DNA or reply to DNA file>',
+    usage: '.dna encode <text or reply to media>\n.dna decode <DNA or reply to DNA file>',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;

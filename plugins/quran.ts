@@ -34,7 +34,7 @@ export default {
     aliases: ['quranverse', 'ayah', 'surah'],
     category: 'info',
     description: 'Search Quran verses by surah:ayah or keyword',
-    usage: '${prefix}quran 1:1\n${prefix}quran 2:255\n${prefix}quran mercy',
+    usage: '.quran 1:1\n.quran 2:255\n.quran mercy',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;

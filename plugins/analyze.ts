@@ -36,7 +36,7 @@ export default {
     aliases: ['textanalyze', 'textanalyser', 'analyse', 'readability'],
     category: 'utility',
     description: 'Deep text analysis: reading level, sentiment, word stats (C++ powered)',
-    usage: '${prefix}analyze <text or reply to any message/file>',
+    usage: '.analyze <text or reply to any message/file>',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo } = context;

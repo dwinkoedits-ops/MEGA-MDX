@@ -9,7 +9,7 @@ export default {
     aliases: ['speed', 'netspeed'],
     category: 'utility',
     description: 'Test internet speed of the server',
-    usage: '${prefix}speedtest',
+    usage: '.speedtest',
     ownerOnly: true,
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {

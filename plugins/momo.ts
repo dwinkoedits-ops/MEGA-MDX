@@ -159,7 +159,7 @@ export default {
     aliases: ['mobilemoney', 'mpesa', 'airtelmoney', 'mtnmomo', 'wave'],
     category: 'info',
     description: 'Mobile Money info for African networks (MTN, Airtel, M-Pesa, Wave, Orange)',
-    usage: '${prefix}momo mtn\n${prefix}momo mpesa\n${prefix}momo airtel',
+    usage: '.momo mtn\n.momo mpesa\n.momo airtel',
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {
         const { chatId, channelInfo, userMessage } = context;

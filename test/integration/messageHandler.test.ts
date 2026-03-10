@@ -19,7 +19,7 @@ vi.mock('../../plugins/antispam.js', () => ({ handleAntiSpam: vi.fn(async () => 
 vi.mock('../../plugins/schedule.js', () => ({ startSchedulerEngine: vi.fn(() => {}) }));
 vi.mock('../../lib/isBanned.js', () => ({ isBanned: vi.fn(async () => false) }));
 vi.mock('../../lib/index.js', () => ({ isSudo: vi.fn(async () => false) }));
-vi.mock('../../config.js', () => ({ default: { ownerNumber: '923001234567@s.whatsapp.net', prefix: ['.'], botName: 'MEGA Bot', botMode: 'public' } }));
+vi.mock('../../config.js', () => ({ default: { ownerNumber: '923001234567@s.whatsapp.net', prefixes: ['.'], botName: 'MEGA Bot', botMode: 'public' } }));
 vi.mock('../../plugins/welcome.js', () => ({ handleJoinEvent: vi.fn(async () => {}), handleWelcome: vi.fn(async () => {}) }));
 vi.mock('../../plugins/goodbye.js', () => ({ default: { handleLeaveEvent: vi.fn(async () => {}) } }));
 vi.mock('../../plugins/promote.js', () => ({ default: { handlePromotionEvent: vi.fn(async () => {}) } }));

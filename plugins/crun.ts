@@ -12,7 +12,7 @@ export default {
     aliases: ['cpp', 'runcpp', 'c++'],
     category: 'utility',
     description: 'Compile and run C++ code',
-    usage: '${prefix}crun <c++ code>',
+    usage: '.crun <c++ code>',
     ownerOnly: true,
 
     async handler(sock: any, message: any, args: any[], context: BotContext) {

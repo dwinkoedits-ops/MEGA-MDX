@@ -25,13 +25,12 @@ export default {
   usage: '.yts [query]',
 
   async handler(sock: any, message: any, args: any, context: BotContext) {
-    const { chatId, config } = context;
+    const { chatId } = context;
     const query = args.join(' ');
-    const prefix = config.prefix;
 
     if (!query) {
       return sock.sendMessage(chatId, {
-        text: `Example: *${prefix}yts* Lil Peep`
+        text: `Example: *.yts* Lil Peep`
       }, { quoted: message });
     }
 
