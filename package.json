@@ -75,7 +75,7 @@
     "node-webpmux": "^3.1.0",
     "pg": "^8.16.3",
     "qrcode": "^1.5.4",
-    "ruhend-scraper": "^9.0.8",
+    "ruhend-scraper": "*",
     "sharp": "^0.34.0",
     "simple-git": "^3.30.0",
     "stickers-formatter": "^0.0.2",
